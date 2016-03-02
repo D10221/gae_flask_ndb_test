@@ -2,7 +2,12 @@ from google.appengine.ext.ndb import Model, StringProperty, KeyProperty, Integer
 
 
 def first_or_default(alist):
-        return alist[0] if alist.__len__() > 0 else None
+    """
+    1st or None
+    :param alist: a list :type list
+    :return 1st T in list or None:
+    """
+    return alist[0] if alist.__len__() > 0 else None
 
 
 class Role(Model):
