@@ -17,6 +17,7 @@
 #               master/appengine/localtesting/test_datastore.py
 
 # [START imports]
+import os
 import unittest
 
 from google.appengine.api import memcache
@@ -47,7 +48,7 @@ def get_entity_via_memcache(entity_key):
 
 
 # [START datastore_example_test]
-class DatastoreTestCase(unittest.TestCase):
+class DatastoreTestCaseBase(unittest.TestCase):
     def setUp(self):
         # First, create an instance of the Testbed class.
         self.testbed = testbed.Testbed()
@@ -69,6 +70,12 @@ class DatastoreTestCase(unittest.TestCase):
         self.testbed.deactivate()
 
     # [END datastore_example_teardown]
+
+    # Helpers
+    def set_current_user(self, email, user_id, is_admin=False):
+        os.environ['USER_EMAIL'] = email or ''
+        os.environ['USER_ID'] = user_id or ''
+        os.environ['USER_IS_ADMIN'] = '1' if is_admin else '0'
 
 # [START HRD_example_1]
 from google.appengine.datastore import datastore_stub_util  # noqa
